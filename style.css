@@ -17,9 +17,8 @@
   --gray: #e2e8f0;
   --gray-dark: #cbd5e0;
   --dark-gray: #4a5568;
-  --border-radius: 12px;
+  --border-radius: 0px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
   --transition: all 0.3s ease;
 }
 
