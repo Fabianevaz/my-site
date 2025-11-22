@@ -289,9 +289,10 @@ p {
 .topo-image {
   position: relative;
   max-width: min(520px, 45vw);
-  margin-bottom: 0rem;
+  margin-bottom: 0;
   justify-self: end;
   align-self: end;
+   margin-right: 0;
 }
 
 .topo-image .image-container {
