@@ -299,11 +299,10 @@ p {
   position: relative;
   border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
+ }
 
 .topo-photo {
-  width: 100%;
+  width: 80%;
   height: auto;
   display: block;
   transition: var(--transition);
