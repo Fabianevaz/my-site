@@ -371,11 +371,17 @@
 </section>
 
 
-  <!-- Seção Contato -->
+<!-- Seção Contato -->
 <section id="contato" class="contato">
   <h2>Fale Comigo</h2>
   <form action="https://formsubmit.co/fcv.instituto@gmail.com" method="POST" aria-label="Formulário de contato">
     
+    <!-- CAMPO OCULTO PARA REDIRECIONAMENTO APÓS O ENVIO -->
+    <input type="hidden" name="_next" value="URL_DA_SUA_PAGINA_DE_SUCESSO">
+    
+    <!-- CAMPO OCULTO PARA ASSUNTO DO E-MAIL (Opcional, mas recomendado ) -->
+    <input type="hidden" name="_subject" value="Nova Mensagem de Contato do Site">
+
     <div class="form-group">
       <label for="name">Seu Nome</label>
       <input type="text" id="name" name="name" placeholder="Digite seu nome completo" required>
@@ -425,11 +431,9 @@
         <div class="tab-pane active" id="sobre">
           <div class="tab-content-inner">
             <h3>Sobre Fabiane Vaz</h3>
-            <p>Sua Empresa Merece um Olhar Técnico e Humano.</p>
-            <p>Acredito que empresas que cuidam de pessoas também merecem ser cuidadas — com ciência, sensibilidade e estratégia.</p>
             <p>Sou Fabiane Vaz, empresária e consultora na área da saúde e do envelhecimento, com mais de 17 anos de experiência à frente da <a href="https://3id.com.br/" target="_blank">3id Geriátrica</a>, referência no atendimento a idosos no Brasil.</p>
             <p>Doutora e Mestre em Ciências da Saúde – UNB, com Título de Especialista pela ABRAFIGE (Associação Brasileira de Fisioterapia em Gerontologia) e pela SBGG (Sociedade Brasileira de Geriatria e Gerontologia), atuo também como docente em cursos de pós-graduação, com experiência voltada para a formação e capacitação de profissionais de saúde, gestão de equipes e processos de liderança.</p>
-            <p>O objetivo é auxiliar empresas a desenvolverem suas lideranças, organizarem processos internos, alcançarem melhores resultados e se estruturarem com mais estratégia, gestão e impacto.</p>
+            <p>O meu objetivo é auxiliar empresas a desenvolverem suas lideranças, organizarem processos internos, alcançarem melhores resultados e se estruturarem com mais estratégia, gestão e impacto.</p>
             <p>Nos últimos anos, venho me dedicando a consultorias empresariais com foco em estruturação, humanização e crescimento estratégico de equipes e negócios que atuam com saúde, envelhecimento e cuidado.</p>
             <p>Já contribuí com empresas como:</p>
             <ul>
@@ -439,10 +443,7 @@
             </ul>
             <p>Organizando equipes, fortalecendo lideranças e desenhando soluções aplicáveis ao dia a dia. Sou apaixonada por unir gestão com propósito e cuidado com resultado.</p>
           </div>
-        </div>
-        
-
-
+        </div>    
 
         <!-- Aba 2: Currículo -->
         <div class="tab-pane" id="curriculo">
@@ -522,14 +523,7 @@
       </div>
     </div>
   </div>
-
-  <!-- Frase de Filosofia Full-Width -->
-  <div class="footer-philosophy-section">
-    <p class="footer-philosophy">
-      Porque sua empresa merece mais do que uma solução — ela merece um caminho construído a quatro mãos.
-    </p>
-  </div>
-
+  
   <!-- Navegação rápida + direitos -->
   <div class="footer-bottom">
     <nav class="footer-nav">
@@ -542,7 +536,7 @@
     </nav>
 
     <div class="footer-copy">
-      📍 Fabiane Vaz – Consultoria em Saúde e Liderança <br />
+   📍 Fabiane Vaz – Consultoria em Saúde e Liderança <br />
       © 2025 – Todos os direitos reservados
     </div>
   </div>
