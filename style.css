@@ -182,7 +182,6 @@ p {
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
-  padding-bottom: 3rem;
 }
 
 .topo-content {
@@ -290,7 +289,7 @@ p {
 .topo-image {
   position: relative;
   max-width: min(520px, 45vw);
-  margin-bottom: -2rem;
+  margin-bottom: 0rem;
   justify-self: end;
   align-self: end;
 }
@@ -484,7 +483,7 @@ a:focus-visible {
 
 .banner-topo img {
   width: 100%;
-  max-width: 1200px;
+  max-width: 860px;
   height: auto;
   display: block;
   margin: 0 auto;
