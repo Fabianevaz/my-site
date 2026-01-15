@@ -1062,7 +1062,7 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
-* ========================================
+/* ========================================
    OPÇÃO 3: IMAGEM COM FUNDO COLORIDO (CORRIGIDA)
    ======================================== */
 
@@ -1125,7 +1125,7 @@ a:focus-visible {
     padding: 12px;
   }
 
-  . .icone-imagem-produto {
+  .icone-imagem-produto {
     width: 70px;
     height: 70px;
   }
@@ -1151,7 +1151,7 @@ a:focus-visible {
     padding: 8px;
   }
 
-  . .icone-imagem-produto {
+  .icone-imagem-produto {
     width: 55px;
     height: 55px;
   }
