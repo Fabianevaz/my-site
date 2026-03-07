@@ -348,32 +348,36 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     });
   }
 
-  function updateSpotlightTabletOrder() {
-    if (!isSpotlightMode()) return;
+  function updateSlideOrder() {
+    if (!useIndexMode) return;
     const total = slides.length;
     slides.forEach((slide, index) => {
       const relative = (index - currentIndex + total) % total;
-      const order = relative === total - 1 ? 0 : (relative === 0 ? 1 : relative + 1);
+      const order = isSpotlightMode()
+        ? (relative === total - 1 ? 0 : (relative === 0 ? 1 : relative + 1))
+        : relative;
       slide.style.order = String(order);
     });
   }
 
-  function clearSpotlightTabletOrder() {
-    if (!isServicesCarousel && !isSobreCarousel) return;
+  function clearSlideOrder() {
+    if (!useIndexMode) return;
     slides.forEach((slide) => {
       slide.style.order = '';
     });
   }
 
-  function applySpotlightTabletTransform() {
-    if (!isSpotlightMode()) return false;
-    updateSpotlightTabletOrder();
+  function applyInfiniteIndexTransform() {
+    if (!useIndexMode) return false;
+    updateSlideOrder();
     const currentSlide = slides[currentIndex];
     if (!currentSlide) return false;
     const viewportWidth = viewport.clientWidth;
     const slideWidth = currentSlide.getBoundingClientRect().width;
     const left = currentSlide.offsetLeft;
-    const offsetPx = left - ((viewportWidth - slideWidth) / 2);
+    const offsetPx = isSpotlightMode()
+      ? left - ((viewportWidth - slideWidth) / 2)
+      : left;
     track.style.transform = `translateX(${-Math.max(0, offsetPx)}px)`;
     return true;
   }
@@ -383,8 +387,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     currentIndex = index;
     updateSpotlightCenterState();
     setTransitionOn();
-    if (applySpotlightTabletTransform()) {
+    const previousTransform = track.style.transform;
+    if (applyInfiniteIndexTransform()) {
       updateDots();
+      if (track.style.transform === previousTransform) {
+        isAnimating = false;
+        return;
+      }
       isAnimating = true;
       track.addEventListener('transitionend', () => {
         isAnimating = false;
@@ -509,13 +518,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   window.addEventListener('resize', () => {
     if (isDesktopOff()) {
       track.style.transform = 'none';
-      clearSpotlightTabletOrder();
+      clearSlideOrder();
       stopAutoplay();
     } else {
       updateSpotlightCenterState();
       if (useIndexMode) {
-        if (!applySpotlightTabletTransform()) {
-          clearSpotlightTabletOrder();
+        if (!applyInfiniteIndexTransform()) {
+          clearSlideOrder();
           track.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
       }
@@ -526,15 +535,15 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   if (!isDesktopOff()) {
     updateSpotlightCenterState();
     if (useIndexMode) {
-      if (!applySpotlightTabletTransform()) {
-        clearSpotlightTabletOrder();
+      if (!applyInfiniteIndexTransform()) {
+        clearSlideOrder();
       }
       updateDots();
     }
     startAutoplay();
   } else {
     track.style.transform = 'none';
-    clearSpotlightTabletOrder();
+    clearSlideOrder();
   }
 
   let startX = 0;
@@ -576,7 +585,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 });
 
 
-(() => {
+ (async () => {
   const carousel = document.getElementById("tCarousel");
   if (!carousel) return;
 
@@ -584,16 +593,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   const track = carousel.querySelector(".t-track");
   const prev = carousel.querySelector(".t-btn.prev");
   const next = carousel.querySelector(".t-btn.next");
-
-  let cards = Array.from(track.querySelectorAll(".testimonial-card"));
-  if (cards.length === 0) return;
-
-  let centerIndex = Math.min(1, cards.length - 1);
+  const testimonialsSource = "./src/depoimentos.json";
 
   const buildSnippet = (fullText) => {
     if (!fullText) return "";
     const normalized = fullText
       .replace(/lineB/g, " ")
+      .replace(/\n+/g, " ")
       .replace(/\s+/g, " ")
       .trim();
     const maxChars = 230;
@@ -603,7 +609,84 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     return `${(safeCut > 120 ? sliced.slice(0, safeCut) : sliced).trim()}...`;
   };
 
-  const applyCardSnippets = () => {
+  const buildStars = (count) => {
+    const safeCount = Number.isFinite(count) ? Math.max(0, count) : 5;
+    return Array.from({ length: safeCount }, () => "★").join(" ");
+  };
+
+  const setAuthorContent = (authorEl, author) => {
+    if (!authorEl) return;
+    authorEl.textContent = "";
+    const dash = document.createElement("span");
+    dash.textContent = "—";
+    authorEl.appendChild(dash);
+    if (author) {
+      authorEl.append(document.createTextNode(` ${author}`));
+    } else {
+      authorEl.append(document.createTextNode(" "));
+    }
+  };
+
+  const createTestimonialCard = (entry) => {
+    const article = document.createElement("article");
+    article.className = "testimonial-card";
+
+    const quoteIcon = document.createElement("i");
+    quoteIcon.className = "fa-solid fa-quote-left";
+
+    const snippet = document.createElement("p");
+    snippet.className = "t-snippet";
+    snippet.textContent = buildSnippet(entry.fullText || "");
+
+    const author = document.createElement("h2");
+    author.className = "t-author";
+    setAuthorContent(author, entry.author || "");
+
+    const enterprise = document.createElement("h2");
+    enterprise.className = "t-author-enterprise";
+    enterprise.textContent = entry.enterprise || "";
+
+    const stars = document.createElement("p");
+    stars.className = "t-stars";
+    stars.textContent = buildStars(entry.stars ?? 5);
+
+    const button = document.createElement("button");
+    button.className = "t-more";
+    button.type = "button";
+    button.textContent = "Ler mais";
+    button.dataset.title = entry.author || "";
+    button.dataset.full = entry.fullText || "";
+
+    article.append(quoteIcon, snippet, author, enterprise, stars, button);
+    return article;
+  };
+
+  const renderTestimonialsFromJson = async () => {
+    try {
+      const response = await fetch(testimonialsSource, { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const testimonials = await response.json();
+      if (!Array.isArray(testimonials) || testimonials.length === 0) return false;
+
+      track.textContent = "";
+      testimonials.forEach((entry) => {
+        track.appendChild(createTestimonialCard(entry));
+      });
+      return true;
+    } catch (error) {
+      console.warn("Nao foi possivel carregar depoimentos via JSON.", error);
+      return false;
+    }
+  };
+
+  const loadedFromJson = await renderTestimonialsFromJson();
+
+  let cards = Array.from(track.querySelectorAll(".testimonial-card"));
+  if (cards.length === 0) return;
+
+  let centerIndex = Math.min(1, cards.length - 1);
+
+  if (!loadedFromJson) {
     cards.forEach((card) => {
       const btn = card.querySelector(".t-more");
       const snippet = card.querySelector(".t-snippet");
@@ -612,9 +695,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
       const nextSnippet = buildSnippet(full);
       if (nextSnippet) snippet.textContent = nextSnippet;
     });
-  };
-
-  applyCardSnippets();
+  }
 
   const getCardStep = () => {
     const first = cards[0];
@@ -635,7 +716,10 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     const total = cards.length;
     cards.forEach((card, index) => {
       const relative = (index - centerIndex + total) % total;
-      const order = relative === total - 1 ? 0 : (relative === 0 ? 1 : relative + 1);
+      const isSpotlight = !window.matchMedia("(max-width: 768px)").matches;
+      const order = isSpotlight
+        ? (relative === total - 1 ? 0 : (relative === 0 ? 1 : relative + 1))
+        : relative;
       card.style.order = String(order);
     });
   };
@@ -651,30 +735,20 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     if (cards.length === 0) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1100px)").matches;
-    const isDesktop = window.matchMedia("(min-width: 1101px)").matches;
+    const isSpotlight = !isMobile;
 
     applyCenterClass();
 
-    if (isDesktop) {
-      applyDesktopOrder();
-      const currentCard = cards[centerIndex];
-      if (currentCard) {
-        const viewportWidth = viewport.clientWidth;
-        const cardWidth = currentCard.getBoundingClientRect().width;
-        const cardLeft = currentCard.offsetLeft;
-        const targetOffset = cardLeft - ((viewportWidth - cardWidth) / 2);
-        track.style.transform = `translateX(${-Math.max(0, targetOffset)}px)`;
-      }
-    } else {
-      clearDesktopOrder();
-      const step = getCardStep();
-      if (!step) return;
-      const offsetCards = isMobile
-        ? centerIndex
-        : (isTablet ? (centerIndex - 0.5) : (centerIndex - 1));
-      const offsetPx = Math.max(0, offsetCards) * step;
-      track.style.transform = `translateX(${-offsetPx}px)`;
+    applyDesktopOrder();
+    const currentCard = cards[centerIndex];
+    if (currentCard) {
+      const viewportWidth = viewport.clientWidth;
+      const cardWidth = currentCard.getBoundingClientRect().width;
+      const cardLeft = currentCard.offsetLeft;
+      const targetOffset = isSpotlight
+        ? cardLeft - ((viewportWidth - cardWidth) / 2)
+        : cardLeft;
+      track.style.transform = `translateX(${-Math.max(0, targetOffset)}px)`;
     }
 
     const dotElems = carousel.querySelectorAll(".carousel-controls .dot");
@@ -757,7 +831,10 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   const openModal = (card, text) => {
     if (!modal) return;
-    const formattedText = (text || "").replace(/lineB/g, "<br><br>");
+    const formattedText = (text || "")
+      .replace(/lineB/g, "\n\n")
+      .replace(/\n{2,}/g, "<br><br>")
+      .replace(/\n/g, "<br>");
     modalText.innerHTML = formattedText;
 
     if (card) {

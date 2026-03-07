@@ -1128,6 +1128,22 @@ body {
   transform: scale(1.08);
 }
 
+#tCarousel .carousel-controls {
+  gap: 18px;
+}
+
+#tCarousel .carousel-controls .carousel-dots {
+  display: none;
+}
+
+#tCarousel .carousel-progress-line {
+  width: min(180px, 42vw);
+  height: 3px;
+  border-radius: 999px;
+  background: var(--cor-secundaria-700);
+  flex: 0 0 auto;
+}
+
 @media (max-width: 768px) {}
 
 #modalDepoimento .modal-body {
@@ -1287,6 +1303,7 @@ body {
   gap: 12px;
   flex-wrap: wrap;
   align-items: center;
+  margin-top: 15px;
 }
 
 #verMais_sobre {
@@ -1966,6 +1983,8 @@ body {
   }
 
   .conteudo-cards {
+    display: flex;
+    grid-template-columns: none;
     flex-wrap: nowrap;
     align-items: stretch;
     gap: 0;
@@ -1977,6 +1996,11 @@ body {
     min-width: 0;
     margin-bottom: 20px;
     margin-right: 10px;
+  }
+
+  #carousel-servicos .carousel-track.conteudo-cards {
+    display: flex;
+    grid-template-columns: none;
   }
 
   .mobile-carousel {
@@ -2570,7 +2594,7 @@ body {
   #home {
     height: 100vh;
     min-height: 100svh;
-    padding: 0;
+    padding-top: 55px;
     display: flex;
     align-items: center;
   }
