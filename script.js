@@ -311,15 +311,19 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     return isSobreCarousel && window.matchMedia('(min-width: 769px) and (max-width: 1100px)').matches;
   }
 
-  function isSpotlightTabletMode() {
-    return isServicesTabletMode() || isSobreTabletMode();
+  function isSobreDesktopMode() {
+    return isSobreCarousel && window.matchMedia('(min-width: 1101px)').matches;
+  }
+
+  function isSpotlightMode() {
+    return isServicesTabletMode() || isSobreTabletMode() || isSobreDesktopMode();
   }
 
   function isDesktopOff() {
     return isMobileOnly && window.innerWidth >= 768 && !isServicesTabletMode();
   }
 
-  if (isSpotlightTabletMode() && slides.length > 0) {
+  if (isSpotlightMode() && slides.length > 0) {
     currentIndex = 0;
   }
 
@@ -340,12 +344,12 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   function updateSpotlightCenterState() {
     if (!isServicesCarousel && !isSobreCarousel) return;
     slides.forEach((slide, index) => {
-      slide.classList.toggle('is-center', isSpotlightTabletMode() && index === currentIndex);
+      slide.classList.toggle('is-center', isSpotlightMode() && index === currentIndex);
     });
   }
 
   function updateSpotlightTabletOrder() {
-    if (!isSpotlightTabletMode()) return;
+    if (!isSpotlightMode()) return;
     const total = slides.length;
     slides.forEach((slide, index) => {
       const relative = (index - currentIndex + total) % total;
@@ -362,7 +366,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   }
 
   function applySpotlightTabletTransform() {
-    if (!isSpotlightTabletMode()) return false;
+    if (!isSpotlightMode()) return false;
     updateSpotlightTabletOrder();
     const currentSlide = slides[currentIndex];
     if (!currentSlide) return false;
@@ -627,24 +631,51 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     cards.forEach((c, i) => c.classList.toggle("is-center", i === centerIndex));
   };
 
+  const applyDesktopOrder = () => {
+    const total = cards.length;
+    cards.forEach((card, index) => {
+      const relative = (index - centerIndex + total) % total;
+      const order = relative === total - 1 ? 0 : (relative === 0 ? 1 : relative + 1);
+      card.style.order = String(order);
+    });
+  };
+
+  const clearDesktopOrder = () => {
+    cards.forEach((card) => {
+      card.style.order = "";
+    });
+  };
+
   const render = () => {
     cards = Array.from(track.querySelectorAll(".testimonial-card"));
     if (cards.length === 0) return;
 
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
     const isTablet = window.matchMedia("(min-width: 769px) and (max-width: 1100px)").matches;
+    const isDesktop = window.matchMedia("(min-width: 1101px)").matches;
 
     applyCenterClass();
 
-    const step = getCardStep();
-    if (!step) return;
-
-    const offsetCards = isMobile
-      ? centerIndex
-      : (isTablet ? (centerIndex - 0.5) : (centerIndex - 1));
-    const offsetPx = Math.max(0, offsetCards) * step;
-
-    track.style.transform = `translateX(${-offsetPx}px)`;
+    if (isDesktop) {
+      applyDesktopOrder();
+      const currentCard = cards[centerIndex];
+      if (currentCard) {
+        const viewportWidth = viewport.clientWidth;
+        const cardWidth = currentCard.getBoundingClientRect().width;
+        const cardLeft = currentCard.offsetLeft;
+        const targetOffset = cardLeft - ((viewportWidth - cardWidth) / 2);
+        track.style.transform = `translateX(${-Math.max(0, targetOffset)}px)`;
+      }
+    } else {
+      clearDesktopOrder();
+      const step = getCardStep();
+      if (!step) return;
+      const offsetCards = isMobile
+        ? centerIndex
+        : (isTablet ? (centerIndex - 0.5) : (centerIndex - 1));
+      const offsetPx = Math.max(0, offsetCards) * step;
+      track.style.transform = `translateX(${-offsetPx}px)`;
+    }
 
     const dotElems = carousel.querySelectorAll(".carousel-controls .dot");
     dotElems.forEach((d, i) => d.classList.toggle("active", i === centerIndex));

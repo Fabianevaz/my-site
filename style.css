@@ -321,7 +321,8 @@ body {
 /* SERVICOS-CSS */
 
 #servicos {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   background-color: var(--cor-branco);
   color: var(--cor-primaria);
 }
@@ -393,12 +394,15 @@ body {
 }
 
 .conteudo-cards {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
 }
 
 .cards {
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
   height: auto;
   background-color: var(--cor-branco);
   border-radius: 20px;
@@ -409,6 +413,7 @@ body {
   font-size: 20px;
   border: 1px solid var(--cor-borda-cinza);
   box-shadow: var(--sombra-card-leve);
+  margin: 0 auto;
 }
 
 .diagnostico-bloco1 {
@@ -791,9 +796,11 @@ body {
 .modal-ebook-actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
+.btn-open-ebook,
 .btn-download-ebook {
   display: inline-flex;
   align-items: center;
@@ -809,13 +816,27 @@ body {
   white-space: nowrap;
 }
 
+.btn-open-ebook {
+  background-color: var(--cor-primaria);
+}
+
+.btn-open-ebook:hover {
+  background-color: var(--cor-detalhe);
+  transform: scale(1.03);
+}
+
 .btn-download-ebook:hover {
   background-color: var(--cor-detalhe);
   transform: scale(1.03);
 }
 
+.btn-open-ebook i,
 .btn-download-ebook i {
   font-size: 14px;
+}
+
+.modal-ebook-fallback {
+  display: none;
 }
 
 
@@ -1207,7 +1228,7 @@ body {
   overflow: hidden;
   background-color: var(--cor-branco);
   color: var(--cor-primaria);
-  padding: 5em clamp(2em, 5vw, 2em);
+  padding: 7em clamp(2em, 5vw, 4em);
   transition: max-height 0.7s ease;
 }
 
@@ -1247,7 +1268,6 @@ body {
   max-height: 2000px;
   -webkit-mask-image: none;
   mask-image: none;
-  margin-bottom: 15px;
 }
 
 .conteudo-subtitulo li {
@@ -1263,12 +1283,10 @@ body {
 }
 
 .botoes-sobre {
-  display: inline-flex;
+  display: flex;
   gap: 12px;
   flex-wrap: wrap;
   align-items: center;
-  margin: 20px 0;
-  
 }
 
 #verMais_sobre {
@@ -2292,6 +2310,48 @@ body {
   }
 }
 
+@media (max-width: 900px) {
+  .modal-content.modal-ebook-content {
+    height: auto;
+    max-height: calc(100dvh - 24px);
+  }
+
+  .modal-content.modal-ebook-content .modal-header {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .modal-content.modal-ebook-content .modal-header h2 {
+    max-width: 100%;
+  }
+
+  .modal-content.modal-ebook-content .modal-ebook-body {
+    padding: 24px 18px;
+  }
+
+  .modal-content.modal-ebook-content .modal-ebook-iframe {
+    display: none;
+  }
+
+  .modal-ebook-fallback {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-align: left;
+    color: var(--cor-primaria);
+  }
+
+  .modal-ebook-fallback p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .modal-ebook-fallback .btn-open-ebook {
+    width: fit-content;
+  }
+}
+
 /* ========
    TABLET
    ======== */
@@ -2911,6 +2971,32 @@ body {
     flex-wrap: nowrap;
     justify-content: center;
     gap: 14px;
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1366px) {
+  .conteudo-servicos {
+    padding: 5em 2.25em;
+  }
+
+  .conteudo-cards {
+    gap: 18px;
+  }
+
+  .cards {
+    max-width: 100%;
+  }
+
+  .diagnostico-bloco1 h2,
+  .estrutura-bloco1 h2,
+  .aceleracao-bloco1 h2 {
+    font-size: 22px;
+  }
+
+  .diagnostico-bloco2__icons img,
+  .estrutura-bloco2__icons img,
+  .aceleracao-bloco2__icons img {
+    width: 78px;
   }
 }
 
