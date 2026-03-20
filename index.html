@@ -63,10 +63,11 @@
   <header class="header">
     <div class="header-conteudo">
       <div class="header-menu">
-        <span class="menu-toggle">☰</span>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu de navegação" aria-controls="menu-principal"
+          aria-expanded="false">☰</button>
         <img class="img-logo" src="./src/FCV_logo.webp" alt="Logo Instituto FCV" />
       </div>
-      <nav class="header-links">
+      <nav class="header-links" id="menu-principal" aria-label="Navegação principal">
         <a class="link-text" href="#home">Início</a>
         <a class="link-text" href="#servicos">Serviços</a>
         <a class="link-text" href="#depoimento">Depoimentos</a>
@@ -130,8 +131,7 @@
               <li><i class="fa-solid fa-check"></i>Quer liderar sua equipe com mais segurança</li>
               <li><i class="fa-solid fa-check"></i>Busca acelerar o crescimento do seu negócio</li>
             </ul>
-            <button class="btn-ebook-trigger" type="button" data-modal="modalEbook">Quero saber por onde
-              começar</button>
+            <button class="btn-ebook-trigger" type="button" data-modal="modalEbook">Quero saber por onde começar</button>
           </div>
         </div>
 
@@ -457,148 +457,22 @@
         <hr>
 
         <div class="t-carousel" id="tCarousel">
-          <button class="t-btn prev" type="button" aria-label="Depoimento anterior">‹</button>
+          <button class="t-btn prev" type="button" aria-label="Depoimento anterior">&#8249;</button>
 
           <div class="t-viewport">
-            <div class="t-track">
-
-              <article class="testimonial-card">
-                <i class="fa-solid fa-quote-left"></i>
-                <p class="t-snippet">
-                  É difícil colocar em palavras o quanto o processo de mentoria me modificou, mas foi um divisor de
-                  águas na minha vida…
-                </p>
-                <h2 class="t-author"><span>—</span> </h2>
-                <h2 class="t-author-enterprise"></h2>
-                <p class="t-stars">★ ★ ★ ★ ★</p>
-                <button class="t-more" type="button" data-title=""
-                  data-full="É difícil colocar em palavras o quanto o processo de mentoria me modificou, mas acredito que é possível dizer que foi um divisor de águas na minha vida, tanto profissional quanto pessoal. Desde o início da minha supervisão, minha grande barreira sempre foi minha insegurança: para me comunicar com pessoas que eu não tinha uma relação próxima, me colocar como destaque, assumir responsabilidades, me permitir ser eu mesma.
-lineB
-Foi um processo bem difícil no começo, me sentir exposta e vulnerável, mas o resultado após todos esses meses é muito satisfatório. Hoje me sinto mais confortável entre meus colegas, mais segura para tomar decisões, compartilhar ideias, assumir projetos e ser mais proativa.
-lineB
-Aprendi a me organizar melhor, identificar prioridades e colocar minhas necessidades pessoais à frente quando necessário. Isso tirou um peso das minhas costas e diminuiu minha ansiedade.
-lineB
-Na vida pessoal também sinto influência positiva: estou mais calma, mais leve e mais espontânea. Muito obrigada Fabi, suas palavras e cuidado foram fundamentais.">
-                  Ler mais
-                </button>
-              </article>
-
-              <!-- 2 - Mantido igual -->
-              <article class="testimonial-card">
-                <i class="fa-solid fa-quote-left"></i>
-                <p class="t-snippet">
-                  A consultoria da Fabiane foi transformadora para a Tearis. Tínhamos uma prática clínica sólida, mas
-                  precisávamos de organização e...
-                </p>
-                <h2 class="t-author"><span>—</span> Júlia, Flávia e Mariana</h2>
-                <h2 class="t-author-enterprise">Tearis Fisioterapia</h2>
-                <p class="t-stars">★ ★ ★ ★ ★</p>
-                <button class="t-more" type="button" data-title="Júlia, Flávia e Mariana"
-                  data-full="A consultoria da Fabiane foi transformadora para a Tearis. Tínhamos uma prática clínica sólida, mas precisávamos de organização e visão estratégica para crescer com segurança. Durante o processo, trabalhamos metas, precificação, gestão interna, perfil dos pacientes e estruturação da liderança, o que trouxe muito mais clareza para nossas decisões.
-Com as orientações dela, conseguimos melhorar processos, qualificar a experiência dos pacientes e fortalecer a identidade da clínica. Hoje atuamos com planejamento e dados, sem perder a essência do cuidado que sempre guiou nosso trabalho.
-A Fabiane conduz a consultoria de forma prática, humana e muito profissional. Recomendamos seu trabalho! ">
-                  Ler mais
-                </button>
-              </article>
-
-              <!-- 3 -->
-              <article class="testimonial-card">
-                <i class="fa-solid fa-quote-left"></i>
-                <p class="t-snippet">
-                  A mentoria tem sido muito importante para mim tanto no aspecto profissional quanto pessoal…
-                </p>
-                <h2 class="t-author"><span>—</span> </h2>
-                <h2 class="t-author-enterprise"></h2>
-                <p class="t-stars">★ ★ ★ ★ ★</p>
-                <button class="t-more" type="button" data-title="" data-full="A mentoria está sendo muito importante para mim tanto no aspecto profissional como pessoal.
-lineB
-No profissional, tem me ajudado a estabelecer metas concretas e prazos claros, sempre pensando em um objetivo maior e passando esse pensamento para os liderados.
-lineB
-Um ponto que ainda quero desenvolver é como dar feedbacks negativos. Estou aprendendo o contexto de como fazer, mas ainda é um desafio encontrar as palavras certas para não desestimular.
-lineB
-Acredito que esse processo tem sido essencial para meu crescimento.">
-                  Ler mais
-                </button>
-              </article>
-
-              <!-- 4 -->
-              <article class="testimonial-card">
-                <i class="fa-solid fa-quote-left"></i>
-                <p class="t-snippet">
-                  Quando fui convidada para a supervisão, nunca me senti apta para o cargo…
-                </p>
-                <h2 class="t-author"><span>—</span> </h2>
-                <h2 class="t-author-enterprise"></h2>
-                <p class="t-stars">★ ★ ★ ★ ★</p>
-                <button class="t-more" type="button" data-title="" data-full="Quando fui convidada para fazer parte da supervisão, nunca me senti apta para o cargo por experiências ruins anteriores.
-lineB
-A mentoria veio para me auxiliar a me reencontrar como profissional e como pessoa.
-lineB
-Tenho desenvolvido aspectos da minha vida que contribuirão para que eu seja a líder que espero ser. Hoje vejo a liderança como parte de um propósito maior.
-lineB
-Sou muito grata pela trajetória, aprendizados e estou disposta a aprender muito mais. Obrigada Fabi!">
-                  Ler mais
-                </button>
-              </article>
-
-              <!-- 5 -->
-              <article class="testimonial-card">
-                <i class="fa-solid fa-quote-left"></i>
-                <p class="t-snippet">
-                  O processo de mentoria tem sido muito enriquecedor para mim…
-                </p>
-                <h2 class="t-author"><span>—</span> </h2>
-                <h2 class="t-author-enterprise"></h2>
-                <p class="t-stars">★ ★ ★ ★ ★</p>
-                <button class="t-more" type="button" data-title=""
-                  data-full="O processo de mentoria tem sido muito enriquecedor para mim, com crescimento profissional e pessoal.
-lineB
-Tenho descoberto habilidades e reconhecido pontos de melhoria.
-lineB
-Na supervisão, passei a olhar com mais empatia para o time, reconhecendo potencialidades e julgando menos.
-lineB
-Desenvolvi uma postura mais confiante e assertiva, aprendendo a comunicar com clareza, dar feedbacks construtivos e equilibrar cobrança com acolhimento.">
-                  Ler mais
-                </button>
-              </article>
-
-              <article class="testimonial-card">
-                <i class="fa-solid fa-quote-left"></i>
-                <p class="t-snippet">
-                  O processo de mentoria tem me trazido desenvolvimento profissional e pessoal. No início foi difícil
-                  sair da minha zona de conforto, mas hoje percebo…
-                </p>
-                <h2 class="t-author"><span>—</span> </h2>
-                <h2 class="t-author-enterprise"></h2>
-                <p class="t-stars">★ ★ ★ ★ ★</p>
-                <button class="t-more" type="button" data-title=""
-                  data-full="O processo de mentoria tem me trazido desenvolvimento profissional e pessoal.
-lineB
-No início foi um pouco mais difícil sair da minha zona de conforto e enfrentar os pontos que eu preciso desenvolver, porque não estava otimista no quanto eu poderia progredir.
-lineB
-Hoje percebo que posso trabalhar em cima das minhas dificuldades para que elas não me atrapalhem, mesmo sabendo que elas sempre estarão ali de alguma forma, pois sou um ser humano e atingir a perfeição não é possível. Mas, para cada problema há uma solução.
-lineB
-Sair da zona de conforto em relação à minha forma de liderar não é confortável, mas é algo que precisa acontecer sempre.
-lineB
-A palavra que define como me sinto agora é DESENVOLVIMENTO, no gerúndio, pois demonstra algo que está acontecendo, que vai continuar e que com certeza trará resultados, dos quais eu não serei a única beneficiada.">
-                  Ler mais
-                </button>
-              </article>
-
-            </div>
+            <div class="t-track"></div>
           </div>
 
-          <button class="t-btn next" type="button" aria-label="Próximo depoimento">›</button>
+          <button class="t-btn next" type="button" aria-label="Proximo depoimento">&#8250;</button>
 
           <div class="carousel-controls">
             <button class="carousel-btn prev-mobile" type="button" aria-label="Depoimento anterior"><i
                 class="fa-solid fa-angle-left"></i></button>
             <div class="carousel-progress-line" aria-hidden="true"></div>
-            <button class="carousel-btn next-mobile" type="button" aria-label="Próximo depoimento"><i
+            <button class="carousel-btn next-mobile" type="button" aria-label="Proximo depoimento"><i
                 class="fa-solid fa-angle-right"></i></button>
           </div>
         </div>
-
         <hr>
       </div>
     </section>
@@ -616,8 +490,8 @@ A palavra que define como me sinto agora é DESENVOLVIMENTO, no gerúndio, pois 
           <i class="fa-solid fa-quote-left"></i>
           <p id="modalDepoTexto"></p>
           <div class="modal-depo-footer">
-            <h2 id="modalDepoAuthor" class="t-author"></h2>
-            <h2 id="modalDepoEnterprise" class="t-author-enterprise"></h2>
+            <p id="modalDepoAuthor" class="t-author"></p>
+            <p id="modalDepoEnterprise" class="t-author-enterprise"></p>
             <p id="modalDepoStars" class="t-stars"></p>
           </div>
         </div>
@@ -653,7 +527,7 @@ A palavra que define como me sinto agora é DESENVOLVIMENTO, no gerúndio, pois 
           <div class="conteudo-texto">
             <h1 class="conteudo-titulo">Quem é Fabiane Vaz?</h1>
             <hr class="linha-titulo">
-            <h2 class="conteudo-subtitulo">Sou Fabiane Vaz, empresária e consultora na área da saúde e do
+            <div class="conteudo-subtitulo">Sou Fabiane Vaz, empresária e consultora na área da saúde e do
               envelhecimento,
               com mais de 17 anos de experiência à frente da 3id Geriátrica, referência no atendimento a idosos no
               Brasil.<br><br>Doutora e Mestre em Ciências da Saúde – UNB, com Título de Especialista pela ABRAFIGE
@@ -675,11 +549,11 @@ A palavra que define como me sinto agora é DESENVOLVIMENTO, no gerúndio, pois 
               <br>
               Organizando equipes, fortalecendo lideranças e desenhando soluções aplicáveis ao dia a dia. Sou apaixonada
               por unir gestão com propósito e cuidado com resultado.
-            </h2>
+            </div>
           </div>
           <div class="botoes-sobre">
-            <a href="#" class="button" id="verMais_sobre">Ver mais ></a>
-            <a href="#" class="button" id="curriculo_pdf">Ver currículo completo ></a>
+            <button class="button" id="verMais_sobre" type="button">Ver mais ></button>
+            <button class="button" id="curriculo_pdf" type="button">Ver currículo completo ></button>
           </div>
 
           <div class="modal" id="modalCurriculo" aria-hidden="true">
@@ -704,13 +578,13 @@ A palavra que define como me sinto agora é DESENVOLVIMENTO, no gerúndio, pois 
                     <li><i class="fa-solid fa-check"></i> Pós-graduada em Fisioterapia em Gerontologia - HC FMUSP</li>
                     <li><i class="fa-solid fa-check"></i> Formação em Distúrbios do Equilíbrio e Reabilitação Vestibular
                     </li>
-                    <li><i class="fa-solid fa-check"></i> Diretora Técnica da <a href="#">3ID Geriátrica</a></li>
+                    <li><i class="fa-solid fa-check"></i> Diretora Técnica da <a href="https://3id.com.br/" target="_blank" rel="noopener">3ID Geriátrica</a></li>
                   </ul>
                 </div>
                 <div class="curriculo-content">
                   <h2>Experiência e Atuação</h2>
                   <ul>
-                    <li><i class="fa-solid fa-check"></i> Co-fundadora da <a href="#">3ID Geriátrica</a></li>
+                    <li><i class="fa-solid fa-check"></i> Co-fundadora da <a href="https://3id.com.br/" target="_blank" rel="noopener">3ID Geriátrica</a></li>
                     <li><i class="fa-solid fa-check"></i> Consultora empresarial em saúde desde 2022</li>
                     <li><i class="fa-solid fa-check"></i> Docente de pós-graduação em cursos de Fisioterapia em
                       Gerontologia</li>
@@ -742,86 +616,19 @@ A palavra que define como me sinto agora é DESENVOLVIMENTO, no gerúndio, pois 
           </div>
 
           <div class="carousel">
-            <button class="carousel-btn prev">‹</button>
+            <button class="carousel-btn prev" type="button" aria-label="Slide anterior">&#8249;</button>
 
             <div class="carousel-viewport">
-              <div class="carousel-track">
-
-                <div class="cards-sobre">
-                  <div class="tracejado">
-                    <div class="icon-e-data">
-                      <div class="cards-sobre-icon">
-                        <i class="fa-solid fa-calendar-days"></i>
-                      </div>
-                      <div class="cards-sobre-data">
-                        <p><b>06 e 07 de março</b> -<br>Faculdade Inspirar</p>
-                      </div>
-                    </div>
-                    <h3 class="agenda-titulo">Aula (Pós-graduação)</h3>
-                    <p class="agenda-subtitulo">Reabilitação Vestibular na Pessoa Idosa</p>
-                    <div class="agenda-botao-linha">
-                      <div class="linha-agenda"></div>
-                      <button class="button agenda-completa-btn btn-agenda-trigger" type="button">Ver agenda completa
-                        ></button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="cards-sobre">
-                  <div class="tracejado">
-                    <div class="icon-e-data">
-                      <div class="cards-sobre-icon">
-                        <i class="fa-solid fa-calendar-days"></i>
-                      </div>
-                      <div class="cards-sobre-data">
-                        <p><b>14 de Março</b> -<br>Goiânia</p>
-                      </div>
-                    </div>
-                    <h3 class="agenda-titulo">Aula</h3>
-                    <p class="agenda-subtitulo">Reabilitação Vestibular na Pessoa Idosa</p>
-                    <div class="agenda-botao-linha">
-                      <div class="linha-agenda"></div>
-                      <button class="button agenda-completa-btn btn-agenda-trigger" type="button">Ver agenda completa
-                        ></button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="cards-sobre">
-                  <div class="tracejado">
-                    <div class="icon-e-data">
-                      <div class="cards-sobre-icon">
-                        <i class="fa-solid fa-calendar-days"></i>
-                      </div>
-                      <div class="cards-sobre-data">
-                        <p><b>28 e 29 de março</b> -<br>Faculdade Interfísio - RJ</p>
-                      </div>
-                    </div>
-                    <h3 class="agenda-titulo">Aula (Pós-graduação)</h3>
-                    <p class="agenda-subtitulo">Equilíbrio na Pessoa Idosa</p>
-                    <div class="agenda-botao-linha">
-                      <div class="linha-agenda"></div>
-                      <button class="button agenda-completa-btn btn-agenda-trigger" type="button">Ver agenda completa
-                        ></button>
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
+              <div class="carousel-track" id="agendaCarouselTrack"></div>
             </div>
 
-            <button class="carousel-btn next">›</button>
+            <button class="carousel-btn next" type="button" aria-label="Proximo slide">&#8250;</button>
 
             <div class="carousel-controls">
               <button class="carousel-btn prev-mobile" type="button" aria-label="Slide anterior"><i
                   class="fa-solid fa-angle-left"></i></button>
-              <div class="carousel-dots">
-                <button class="dot active" aria-label="Slide 1"></button>
-                <button class="dot" aria-label="Slide 2"></button>
-                <button class="dot" aria-label="Slide 3"></button>
-              </div>
-              <button class="carousel-btn next-mobile" type="button" aria-label="Próximo slide"><i
+              <div class="carousel-dots" id="agendaCarouselDots"></div>
+              <button class="carousel-btn next-mobile" type="button" aria-label="Proximo slide"><i
                   class="fa-solid fa-angle-right"></i></button>
             </div>
           </div>
@@ -842,67 +649,7 @@ A palavra que define como me sinto agora é DESENVOLVIMENTO, no gerúndio, pois 
           <button class="modal-close" type="button" aria-label="Fechar" data-close="true">×</button>
         </div>
         <hr>
-        <div class="modal-body modal-agenda-body">
-          <div class="curriculo-content">
-            <h2>Março/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">06 e 07/03</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Aula (Pós-graduação): Reabilitação Vestibular na Pessoa Idosa (Faculdade Inspirar)</span></li>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">14/03</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Aula: Reabilitação Vestibular na Pessoa Idosa (Goiânia)</span></li>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">28 e 29/03</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Aula (Pós-graduação): Equilíbrio na Pessoa Idosa (Faculdade Interfísio - RJ)</span></li>
-            </ul>
-          </div>
-
-          <div class="curriculo-content">
-            <h2>Abril/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">17 a 19/04</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Curso (Imersão): Reabilitação Vestibular na Pessoa Idosa (Brasília)</span></li>
-            </ul>
-          </div>
-
-          <div class="curriculo-content">
-            <h2>Maio a Julho/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">Maio a Julho</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Curso (Fellowship - 1ª turma anual): Fellowship Prático em Geriatria (3D Geriátrica)</span></li>
-            </ul>
-          </div>
-
-          <div class="curriculo-content">
-            <h2>Junho/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">09/06</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Aula (Webinar): Tonturas e Vertigens na Pessoa Idosa (ABRAFIGE - Online)</span></li>
-            </ul>
-          </div>
-
-          <div class="curriculo-content">
-            <h2>Julho/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">01 a 04/07</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Curso: Reabilitação Vestibular na Pessoa Idosa (ABRAFIGE)</span></li>
-            </ul>
-          </div>
-
-          <div class="curriculo-content">
-            <h2>Agosto/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">10 a 12/08</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Curso: Controle Postural e Equilíbrio na Pessoa Idosa (Presencial)</span></li>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">14 a 16/08</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Curso: Empreendedorismo em Gerontologia (Presencial)</span></li>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">28 a 30/08</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Curso: Controle Postural e Equilíbrio na Pessoa Idosa (Presencial)</span></li>
-            </ul>
-          </div>
-
-          <div class="curriculo-content">
-            <h2>Outubro a Dezembro/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">Outubro a Dezembro</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Curso (Fellowship - 2ª turma anual): Fellowship Prático em Geriatria (3D Geriátrica)</span></li>
-            </ul>
-          </div>
-
-          <div class="curriculo-content">
-            <h2>Novembro/2026</h2>
-            <ul>
-              <li><i class="fa-solid fa-check"></i><span class="agenda-date">20 e 21/11</span><span class="agenda-divider" aria-hidden="true"></span><span class="agenda-event">Palestra: Empreendedorismo em Gerontologia (Congresso Brasileiro de Fisioterapia e Gerontologia)</span></li>
-            </ul>
-          </div>
-        </div>
+        <div class="modal-body modal-agenda-body" id="agendaModalContent"></div>
       </div>
     </div>
 

@@ -2,8 +2,6 @@ const toggle = document.querySelector('.menu-toggle');
 const menu = document.querySelector('.header-links');
 
 if (toggle && menu) {
-  toggle.setAttribute('role', 'button');
-  toggle.setAttribute('tabindex', '0');
   toggle.setAttribute('aria-expanded', 'false');
   const openMenu = () => {
     menu.classList.add('active');
@@ -29,13 +27,6 @@ if (toggle && menu) {
     toggleMenu();
   });
 
-  toggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleMenu();
-    }
-  });
-
   menu.querySelectorAll('a').forEach((link) => { // aqui fecha o menu se clicar num link
     link.addEventListener('click', () => closeMenu());
   });
@@ -49,6 +40,315 @@ if (toggle && menu) {
     if (e.key === 'Escape') closeMenu();
   });
 }
+(async () => {
+  const agendaSource = "./src/agenda.json";
+  const agendaCarousel = document.querySelector("#sobre .carousel");
+  const agendaTrack = document.getElementById("agendaCarouselTrack");
+  const agendaDots = document.getElementById("agendaCarouselDots");
+  const agendaModal = document.getElementById("modalAgenda");
+  const agendaModalBody = document.getElementById("agendaModalContent");
+
+  if (!agendaCarousel || !agendaTrack || !agendaDots || !agendaModalBody) return;
+
+  const prevButtons = Array.from(agendaCarousel.querySelectorAll(".carousel-btn.prev, .carousel-btn.prev-mobile"));
+  const nextButtons = Array.from(agendaCarousel.querySelectorAll(".carousel-btn.next, .carousel-btn.next-mobile"));
+
+  const parseLocalDate = (value) => {
+    if (!value || typeof value !== "string") return null;
+    const [year, month, day] = value.split("-").map(Number);
+    if (![year, month, day].every(Number.isFinite)) return null;
+    return new Date(year, month - 1, day, 12, 0, 0, 0);
+  };
+
+  const today = new Date();
+  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0);
+
+  const sortAgendaItems = (items) => {
+    return [...items].sort((a, b) => {
+      const aTime = parseLocalDate(a.startDate)?.getTime() ?? 0;
+      const bTime = parseLocalDate(b.startDate)?.getTime() ?? 0;
+      return aTime - bTime;
+    });
+  };
+
+  const isVisibleAgendaItem = (entry) => {
+    if (!entry || entry.hidden === true) return false;
+    const endDate = parseLocalDate(entry.endDate || entry.startDate);
+    return !!endDate && endDate >= todayStart;
+  };
+
+  const buildModalText = (entry) => {
+    const title = entry.title || "";
+    const subtitle = entry.subtitle || "";
+    const location = entry.location || "";
+    return `${title}: ${subtitle} (${location})`;
+  };
+
+  const createAgendaCard = (entry) => {
+    const card = document.createElement("div");
+    card.className = "cards-sobre";
+
+    const inner = document.createElement("div");
+    inner.className = "tracejado";
+
+    const header = document.createElement("div");
+    header.className = "icon-e-data";
+
+    const iconWrap = document.createElement("div");
+    iconWrap.className = "cards-sobre-icon";
+    const icon = document.createElement("i");
+    icon.className = "fa-solid fa-calendar-days";
+    iconWrap.appendChild(icon);
+
+    const dateWrap = document.createElement("div");
+    dateWrap.className = "cards-sobre-data";
+    const dateText = document.createElement("p");
+    const strong = document.createElement("b");
+    strong.textContent = entry.cardDate || "";
+    dateText.appendChild(strong);
+    dateText.append(document.createTextNode(" -"));
+    dateText.appendChild(document.createElement("br"));
+    dateText.append(document.createTextNode(entry.location || ""));
+    dateWrap.appendChild(dateText);
+
+    header.append(iconWrap, dateWrap);
+
+    const title = document.createElement("h3");
+    title.className = "agenda-titulo";
+    title.textContent = entry.title || "";
+
+    const subtitle = document.createElement("p");
+    subtitle.className = "agenda-subtitulo";
+    subtitle.textContent = entry.subtitle || "";
+
+    const footer = document.createElement("div");
+    footer.className = "agenda-botao-linha";
+
+    const line = document.createElement("div");
+    line.className = "linha-agenda";
+
+    const button = document.createElement("button");
+    button.className = "button agenda-completa-btn btn-agenda-trigger";
+    button.type = "button";
+    button.textContent = "Ver agenda completa >";
+
+    footer.append(line, button);
+    inner.append(header, title, subtitle, footer);
+    card.appendChild(inner);
+    return card;
+  };
+
+  const createAgendaDot = (index, isActive) => {
+    const dot = document.createElement("button");
+    dot.className = `dot${isActive ? " active" : ""}`;
+    dot.type = "button";
+    dot.setAttribute("aria-label", `Slide ${index + 1}`);
+    return dot;
+  };
+
+  const createEmptyAgendaCard = () => {
+    return createAgendaCard({
+      cardDate: "Em breve",
+      location: "Novas datas",
+      title: "Agenda em atualização",
+      subtitle: "Novas datas serão publicadas em breve."
+    });
+  };
+
+  const createAgendaSection = (title, items) => {
+    const section = document.createElement("div");
+    section.className = "curriculo-content";
+
+    const heading = document.createElement("h2");
+    heading.textContent = title;
+
+    const list = document.createElement("ul");
+
+    items.forEach((entry) => {
+      const item = document.createElement("li");
+
+      const icon = document.createElement("i");
+      icon.className = "fa-solid fa-check";
+
+      const date = document.createElement("span");
+      date.className = "agenda-date";
+      date.textContent = entry.modalDate || "";
+
+      const divider = document.createElement("span");
+      divider.className = "agenda-divider";
+      divider.setAttribute("aria-hidden", "true");
+
+      const event = document.createElement("span");
+      event.className = "agenda-event";
+      event.textContent = buildModalText(entry);
+
+      item.append(icon, date, divider, event);
+      list.appendChild(item);
+    });
+
+    section.append(heading, list);
+    return section;
+  };
+
+  const createEmptyAgendaSection = (message = "Adicione novas datas no arquivo agenda.json para exibir a agenda novamente.") => {
+    const section = document.createElement("div");
+    section.className = "curriculo-content";
+
+    const heading = document.createElement("h2");
+    heading.textContent = "Sem eventos visiveis";
+
+    const list = document.createElement("ul");
+    const item = document.createElement("li");
+    item.textContent = message;
+    list.appendChild(item);
+
+    section.append(heading, list);
+    return section;
+  };
+
+  const setAgendaButtonsDisabled = (disabled) => {
+    [...prevButtons, ...nextButtons].forEach((button) => {
+      button.disabled = disabled;
+      button.setAttribute("aria-disabled", String(disabled));
+    });
+  };
+
+  const initAgendaCarousel = () => {
+    const viewport = agendaCarousel.querySelector(".carousel-viewport");
+    const slides = Array.from(agendaTrack.children);
+    const dots = Array.from(agendaDots.querySelectorAll(".dot"));
+
+    if (!viewport || slides.length === 0) {
+      setAgendaButtonsDisabled(true);
+      return;
+    }
+
+    let currentIndex = 0;
+
+    const isSpotlightMode = () => window.matchMedia("(min-width: 769px)").matches;
+
+    const updateDots = () => {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentIndex);
+      });
+    };
+
+    const updateCards = () => {
+      const spotlight = isSpotlightMode();
+
+      slides.forEach((slide, index) => {
+        if (!spotlight) {
+          slide.style.order = "";
+          slide.classList.remove("is-center");
+          return;
+        }
+
+        const total = slides.length;
+        const relative = (index - currentIndex + total) % total;
+        slide.style.order = String(relative === total - 1 ? 0 : relative + 1);
+        slide.classList.toggle("is-center", index === currentIndex);
+      });
+
+      if (!spotlight) {
+        agendaTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        return;
+      }
+
+      const currentSlide = slides[currentIndex];
+      if (!currentSlide) return;
+
+      requestAnimationFrame(() => {
+        const viewportWidth = viewport.clientWidth;
+        const slideWidth = currentSlide.getBoundingClientRect().width;
+        const left = currentSlide.offsetLeft;
+        const offsetPx = left - ((viewportWidth - slideWidth) / 2);
+        agendaTrack.style.transform = `translateX(${-Math.max(0, offsetPx)}px)`;
+      });
+    };
+
+    const goTo = (index) => {
+      if (slides.length === 0) return;
+      currentIndex = (index + slides.length) % slides.length;
+      updateCards();
+      updateDots();
+    };
+
+    const goPrev = () => goTo(currentIndex - 1);
+    const goNext = () => goTo(currentIndex + 1);
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => goTo(index));
+    });
+
+    prevButtons.forEach((button) => {
+      button.addEventListener("click", goPrev);
+    });
+
+    nextButtons.forEach((button) => {
+      button.addEventListener("click", goNext);
+    });
+
+    setAgendaButtonsDisabled(slides.length <= 1);
+    updateCards();
+    updateDots();
+    window.addEventListener("resize", () => updateCards());
+  };
+
+  const renderAgenda = (visibleItems, fetchFailed = false) => {
+    const cardItems = visibleItems.slice(0, 3);
+
+    agendaTrack.textContent = "";
+    agendaDots.textContent = "";
+    agendaModalBody.textContent = "";
+
+    if (cardItems.length === 0) {
+      agendaTrack.appendChild(createEmptyAgendaCard());
+    } else {
+      cardItems.forEach((entry, index) => {
+        agendaTrack.appendChild(createAgendaCard(entry));
+        agendaDots.appendChild(createAgendaDot(index, index === 0));
+      });
+    }
+
+    if (visibleItems.length === 0) {
+      const message = fetchFailed
+        ? "Nao foi possivel carregar agenda.json. Confira se o servidor local esta rodando e tente novamente."
+        : "Adicione novas datas no arquivo agenda.json para exibir a agenda novamente.";
+      agendaModalBody.appendChild(createEmptyAgendaSection(message));
+    } else {
+      const groupedItems = visibleItems.reduce((acc, entry) => {
+        const key = entry.sectionTitle || "Agenda";
+        if (!acc.has(key)) acc.set(key, []);
+        acc.get(key).push(entry);
+        return acc;
+      }, new Map());
+
+      groupedItems.forEach((items, title) => {
+        agendaModalBody.appendChild(createAgendaSection(title, items));
+      });
+    }
+
+    if (agendaModal) {
+      bindSimpleModal(Array.from(document.querySelectorAll(".btn-agenda-trigger")), agendaModal);
+    }
+
+    initAgendaCarousel();
+  };
+
+  try {
+    const response = await fetch(agendaSource, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const agenda = await response.json();
+    if (!Array.isArray(agenda)) throw new Error("Formato invalido para agenda.json");
+
+    const visibleItems = sortAgendaItems(agenda.filter(isVisibleAgendaItem));
+    renderAgenda(visibleItems, false);
+  } catch (error) {
+    console.warn("Nao foi possivel carregar agenda via JSON.", error);
+    renderAgenda([], true);
+  }
+})();
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -277,7 +577,8 @@ if (btnAgendaCompleta.length > 0 && modalAgenda) {
   });
 })();
 
-document.querySelectorAll('.carousel').forEach(carousel => {
+function initCarousel(carousel) {
+  if (!carousel || carousel.dataset.carouselInitialized === "true") return;
   const track = carousel.querySelector('.carousel-track');
   const viewport = carousel.querySelector('.carousel-viewport');
   const prevBtn = carousel.querySelector('.carousel-btn.prev');
@@ -289,6 +590,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   const slides = Array.from(track.children);
   if (slides.length === 0) return;
+  carousel.dataset.carouselInitialized = "true";
 
   const isMobileOnly = carousel.classList.contains('mobile-carousel');
   const isServicesCarousel = carousel.id === 'carousel-servicos';
@@ -582,7 +884,9 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     if (deltaX < 0) moveNext();
     else movePrev();
   }, { passive: true });
-});
+}
+
+document.querySelectorAll('.carousel').forEach(initCarousel);
 
 
  (async () => {
@@ -638,11 +942,11 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     snippet.className = "t-snippet";
     snippet.textContent = buildSnippet(entry.fullText || "");
 
-    const author = document.createElement("h2");
+    const author = document.createElement("p");
     author.className = "t-author";
     setAuthorContent(author, entry.author || "");
 
-    const enterprise = document.createElement("h2");
+    const enterprise = document.createElement("p");
     enterprise.className = "t-author-enterprise";
     enterprise.textContent = entry.enterprise || "";
 

@@ -1,0 +1,134 @@
+[
+  {
+    "sectionTitle": "Março/2026",
+    "startDate": "2026-03-06",
+    "endDate": "2026-03-07",
+    "cardDate": "06 e 07 de março",
+    "modalDate": "06 e 07/03",
+    "title": "Aula (Pós-graduação)",
+    "subtitle": "Reabilitação Vestibular na Pessoa Idosa",
+    "location": "Faculdade Inspirar",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Março/2026",
+    "startDate": "2026-03-14",
+    "endDate": "2026-03-14",
+    "cardDate": "14 de março",
+    "modalDate": "14/03",
+    "title": "Aula",
+    "subtitle": "Reabilitação Vestibular na Pessoa Idosa",
+    "location": "Goiânia",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Março/2026",
+    "startDate": "2026-03-28",
+    "endDate": "2026-03-29",
+    "cardDate": "28 e 29 de março",
+    "modalDate": "28 e 29/03",
+    "title": "Aula (Pós-graduação)",
+    "subtitle": "Equilíbrio na Pessoa Idosa",
+    "location": "Faculdade Interfísio - RJ",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Abril/2026",
+    "startDate": "2026-04-17",
+    "endDate": "2026-04-19",
+    "cardDate": "17 a 19 de abril",
+    "modalDate": "17 a 19/04",
+    "title": "Curso (Imersão)",
+    "subtitle": "Reabilitação Vestibular na Pessoa Idosa",
+    "location": "Brasília",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Maio a Julho/2026",
+    "startDate": "2026-05-01",
+    "endDate": "2026-07-31",
+    "cardDate": "Maio a Julho",
+    "modalDate": "Maio a Julho",
+    "title": "Curso (Fellowship - 1ª turma anual)",
+    "subtitle": "Fellowship Prático em Geriatria",
+    "location": "3D Geriátrica",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Junho/2026",
+    "startDate": "2026-06-09",
+    "endDate": "2026-06-09",
+    "cardDate": "09 de junho",
+    "modalDate": "09/06",
+    "title": "Aula (Webinar)",
+    "subtitle": "Tonturas e Vertigens na Pessoa Idosa",
+    "location": "ABRAFIGE - Online",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Julho/2026",
+    "startDate": "2026-07-01",
+    "endDate": "2026-07-04",
+    "cardDate": "01 a 04 de julho",
+    "modalDate": "01 a 04/07",
+    "title": "Curso",
+    "subtitle": "Reabilitação Vestibular na Pessoa Idosa",
+    "location": "ABRAFIGE",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Agosto/2026",
+    "startDate": "2026-08-10",
+    "endDate": "2026-08-12",
+    "cardDate": "10 a 12 de agosto",
+    "modalDate": "10 a 12/08",
+    "title": "Curso",
+    "subtitle": "Controle Postural e Equilíbrio na Pessoa Idosa",
+    "location": "Presencial",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Agosto/2026",
+    "startDate": "2026-08-14",
+    "endDate": "2026-08-16",
+    "cardDate": "14 a 16 de agosto",
+    "modalDate": "14 a 16/08",
+    "title": "Curso",
+    "subtitle": "Empreendedorismo em Gerontologia",
+    "location": "Presencial",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Agosto/2026",
+    "startDate": "2026-08-28",
+    "endDate": "2026-08-30",
+    "cardDate": "28 a 30 de agosto",
+    "modalDate": "28 a 30/08",
+    "title": "Curso",
+    "subtitle": "Controle Postural e Equilíbrio na Pessoa Idosa",
+    "location": "Presencial",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Outubro a Dezembro/2026",
+    "startDate": "2026-10-01",
+    "endDate": "2026-12-31",
+    "cardDate": "Outubro a Dezembro",
+    "modalDate": "Outubro a Dezembro",
+    "title": "Curso (Fellowship - 2ª turma anual)",
+    "subtitle": "Fellowship Prático em Geriatria",
+    "location": "3D Geriátrica",
+    "hidden": false
+  },
+  {
+    "sectionTitle": "Novembro/2026",
+    "startDate": "2026-11-20",
+    "endDate": "2026-11-21",
+    "cardDate": "20 e 21 de novembro",
+    "modalDate": "20 e 21/11",
+    "title": "Palestra",
+    "subtitle": "Empreendedorismo em Gerontologia",
+    "location": "Congresso Brasileiro de Fisioterapia e Gerontologia",
+    "hidden": false
+  }
+]
